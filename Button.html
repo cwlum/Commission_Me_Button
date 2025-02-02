@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>VGen Button</title>
+  <style>
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .vgen-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background-color: #e87722;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+      border: 0;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(232, 119, 34, 0.3);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      /* 增加動畫鍵幀，使搖擺與放大更加細膩 */
+      animation: refined-swing-pop 3.5s infinite ease-in-out;
+    }
+
+    .vgen-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shine 3s infinite;
+    }
+
+    .vgen-button:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(232, 119, 34, 0.4);
+      background-color: #f48228;
+      /* 當有滑鼠互動時停止自動動畫 */
+      animation: none;
+    }
+
+    .vgen-button:active {
+      transform: translateY(1px);
+    }
+
+    .vgen-button img {
+      width: 20px;
+      height: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    .vgen-button span {
+      letter-spacing: 0.5px;
+    }
+
+    /* 更精細的搖擺與放大動畫 */
+    @keyframes refined-swing-pop {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+      10% {
+        transform: scale(1.02) rotate(1deg);
+      }
+      20% {
+        transform: scale(1.04) rotate(-2deg);
+      }
+      30% {
+        transform: scale(1.05) rotate(3deg);
+      }
+      40% {
+        transform: scale(1.04) rotate(-2deg);
+      }
+      50% {
+        transform: scale(1.03) rotate(1deg);
+      }
+      60% {
+        transform: scale(1.025) rotate(0deg);
+      }
+      80% {
+        transform: scale(1.01) rotate(0deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+      20% {
+        left: 100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-2px);
+      }
+    }
+
+    /* 水波紋效果相關 */
+    .vgen-button .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      width: 20px;
+      height: 20px;
+      transform: scale(0);
+      pointer-events: none;
+      animation: ripple-effect 0.6s linear;
+    }
+
+    @keyframes ripple-effect {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(15);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="button-container">
+    <a href="https://vgen.co/mriwu_u/" class="vgen-button">
+      <img src="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z' fill='white'/%3E%3Cpath d='M17.5 8.5L12 14L6.5 8.5' stroke='%23e87722' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="VGen Logo">
+      <span>Commission me</span>
+    </a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.vgen-button').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        var rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        var ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        // 將水波紋置中 (以圖示 20px 為例)
+        ripple.style.left = (x - 10) + 'px';
+        ripple.style.top = (y - 10) + 'px';
+        btn.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+  </script>
+
+</body>
+</html>
